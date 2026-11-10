@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Family - Perfect Tenses Mastery</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Flip Card Utilities */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Pulse Highlight */
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .active-tab-glow {
+            animation: subtlePulse 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+
+    <!-- HEADER / BRANDING BANNER -->
+    <header class="bg-gradient-to-r from-brand-900 via-brand-700 to-indigo-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                <!-- English Family Branding -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/10 backdrop-blur-md p-2.5 rounded-xl border border-white/20 text-indigo-200">
+                        <i class="fa-solid fa-users-between-lines text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold tracking-widest text-indigo-300 uppercase">Interactive Portal</span>
+                            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Live Session</span>
+                        </div>
+                        <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                            English Family <span class="text-xs font-semibold px-2 py-0.5 bg-brand-500/40 rounded text-indigo-100 border border-brand-400/30">Grammar Suite</span>
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Student Info Inputs -->
+                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                    <div class="relative flex-1 md:w-56">
+                        <i class="fa-solid fa-user-graduate absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="text" id="studentName" placeholder="Enter Student Name..." 
+                            class="w-full pl-9 pr-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-sm text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-slate-900/60 transition">
+                    </div>
+                    <div class="relative w-36">
+                        <i class="fa-solid fa-calendar-day absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="date" id="testDate" 
+                            class="w-full pl-9 pr-2 py-1.5 bg-white/10 border border-white/20 rounded-lg text-xs text-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:bg-slate-900/60 transition">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Global Progress Bar -->
+            <div class="mt-3 pt-2 border-t border-white/10 flex items-center gap-3">
+                <div class="text-xs font-semibold text-indigo-200 whitespace-nowrap flex items-center gap-1.5">
+                    <i class="fa-solid fa-chart-line text-emerald-400"></i>
+                    <span>Progress:</span>
+                    <span id="progressPercentage" class="text-white font-bold">0%</span>
+                </div>
+                <div class="w-full bg-slate-900/50 rounded-full h-2.5 overflow-hidden p-0.5 border border-white/10">
+                    <div id="progressBar" class="bg-gradient-to-r from-emerald-400 to-teal-300 h-1.5 rounded-full transition-all duration-500 w-0"></div>
+                </div>
+                <span id="completionTrackerText" class="text-[11px] text-indigo-200/80 whitespace-nowrap">0 / 56 Complete</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="bg-white border-b border-slate-200 shadow-sm sticky top-[89px] z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 scrollbar-none" id="navigationTabs">
+                
+                <button onclick="switchTab('intro')" id="tab-intro" class="nav-btn active border-brand-600 text-brand-600 bg-brand-50 px-3 py-2 rounded-lg font-semibold text-xs sm:text-sm whitespace-nowrap border-b-2 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-compass"></i> Overview
+                </button>
+
+                <button onclick="switchTab('part1')" id="tab-part1" class="nav-btn text-slate-600 hover:text-brand-600 hover:bg-slate-50 px-3 py-2 rounded-lg font-medium text-xs sm:text-sm whitespace-nowrap border-b-2 border-transparent flex items-center gap-2 transition">
+                    <i class="fa-solid fa-layer-group"></i> Part 1: Flashcards
+                </button>
+
+                <button onclick="switchTab('part2')" id="tab-part2" class="nav-btn text-slate-600 hover:text-brand-600 hover:bg-slate-50 px-3 py-2 rounded-lg font-medium text-xs sm:text-sm whitespace-nowrap border-b-2 border-transparent flex items-center gap-2 transition">
+                    <i class="fa-solid fa-pen-to-square"></i> Part 2: 50 Questions
+                </button>
+
+                <button onclick="switchTab('part3')" id="tab-part3" class="nav-btn text-slate-600 hover:text-brand-600 hover:bg-slate-50 px-3 py-2 rounded-lg font-medium text-xs sm:text-sm whitespace-nowrap border-b-2 border-transparent flex items-center gap-2 transition">
+                    <i class="fa-solid fa-headphones"></i> Part 3: Listening
+                </button>
+
+                <button onclick="switchTab('part4')" id="tab-part4" class="nav-btn text-slate-600 hover:text-brand-600 hover:bg-slate-50 px-3 py-2 rounded-lg font-medium text-xs sm:text-sm whitespace-nowrap border-b-2 border-transparent flex items-center gap-2 transition">
+                    <i class="fa-solid fa-puzzle-piece"></i> Part 4: Memory Game
+                </button>
+
+                <button onclick="switchTab('results')" id="tab-results" class="nav-btn text-slate-400 bg-slate-100 cursor-not-allowed px-3 py-2 rounded-lg font-medium text-xs sm:text-sm whitespace-nowrap border-b-2 border-transparent flex items-center gap-2 transition" disabled>
+                    <i class="fa-solid fa-lock" id="lockIcon"></i> Results & Score
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- SECTION: INTRODUCTION -->
+        <section id="section-intro" class="tab-content space-y-6">
+            <div class="bg-gradient-to-br from-indigo-950 via-brand-900 to-slate-900 text-white rounded-2xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="max-w-3xl space-y-4 relative z-10">
+                    <span class="inline-flex items-center gap-1.5 bg-brand-500/30 text-indigo-200 border border-brand-400/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                        <i class="fa-solid fa-star text-amber-300"></i> Perfect Tenses Mastery Module
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                        Welcome to the <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-teal-200 to-emerald-200">English Family</span> Comprehensive Exam & Practice
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        This interactive assessment is engineered to test and solidify your absolute mastery of the 4 English Perfect Tenses: 
+                        <strong class="text-indigo-200">Present Perfect Simple</strong>, <strong class="text-teal-200">Present Perfect Continuous</strong>, 
+                        <strong class="text-amber-200">Past Perfect Simple</strong>, and <strong class="text-rose-200">Past Perfect Continuous</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Structure Breakdown Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-100 text-brand-600 flex items-center justify-center font-bold mb-3">01</div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">Part 1: Foundations</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Interactive 3D study cards breaking down structural rules, keywords, and real-world examples for all 4 tenses.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center font-bold mb-3">02</div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">Part 2: 50 Questions</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">30 Multiple Choice items, 10 Sentence Completion items, and 10 Tense Identification challenges.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold mb-3">03</div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">Part 3: Listening Track</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Simulated 3-minute audio story featuring high-density perfect tense usage, paired with 5 audio comprehension questions.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-bold mb-3">04</div>
+                    <h3 class="font-bold text-slate-800 text-base mb-1">Part 4: Memory Match</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">A 20-card matching game designed to reinforce sentence structures and verb forms from the exam.</p>
+                </div>
+            </div>
+
+            <!-- Start Action Button -->
+            <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-circle-info text-brand-600 text-xl"></i>
+                    <p class="text-xs sm:text-sm text-slate-700 font-medium">Complete all sections to automatically unlock your detailed score report & submission tools!</p>
+                </div>
+                <button onclick="switchTab('part1')" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                    <span>Begin Assessment</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION: PART 1 - FLASHCARDS -->
+        <section id="section-part1" class="tab-content hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-brand-600"></i> Part 1: Interactive Tense Flashcards
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Click on any card to flip and examine formula rules, keywords, and practical usages.</p>
+                </div>
+                <span class="text-xs bg-brand-100 text-brand-700 font-semibold px-3 py-1 rounded-full w-fit">4 Core Cards</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="flashcardsContainer">
+                <!-- Cards will be populated dynamically -->
+            </div>
+
+            <div class="flex justify-end pt-4">
+                <button onclick="switchTab('part2')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition flex items-center gap-2 text-sm">
+                    <span>Continue to Part 2 Questions</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION: PART 2 - 50 GRAMMAR QUESTIONS -->
+        <section id="section-part2" class="tab-content hidden space-y-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-brand-600"></i> Part 2: Grammar Assessment (50 Questions)
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Includes 30 Multiple Choice, 10 Open Completion, and 10 Tense Identification items.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="part2Counter" class="text-xs bg-slate-200 text-slate-700 font-bold px-3 py-1 rounded-full">0 / 50 Answered</span>
+                </div>
+            </div>
+
+            <!-- Sub-part A: 30 Multiple Choice Questions -->
+            <div class="space-y-4">
+                <div class="bg-indigo-50 border-l-4 border-brand-600 p-4 rounded-r-xl">
+                    <h3 class="font-bold text-brand-900 text-base">Section A: Multiple Choice Questions (1 – 30)</h3>
+                    <p class="text-xs text-brand-700">Select the grammatically correct option for each context.</p>
+                </div>
+
+                <div id="mcqContainer" class="grid grid-cols-1 gap-4">
+                    <!-- MCQ 1 - 30 dynamically injected -->
+                </div>
+            </div>
+
+            <!-- Sub-part B: 10 Open Answer Questions -->
+            <div class="space-y-4 pt-6">
+                <div class="bg-teal-50 border-l-4 border-teal-600 p-4 rounded-r-xl">
+                    <h3 class="font-bold text-teal-900 text-base">Section B: Open Sentence Completion (31 – 40)</h3>
+                    <p class="text-xs text-teal-700">Type the exact correct form of the verb given in parentheses.</p>
+                </div>
+
+                <div id="openAnswerContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Open Q31 - 40 dynamically injected -->
+                </div>
+            </div>
+
+            <!-- Sub-part C: 10 Tense Identification Questions -->
+            <div class="space-y-4 pt-6">
+                <div class="bg-amber-50 border-l-4 border-amber-600 p-4 rounded-r-xl">
+                    <h3 class="font-bold text-amber-900 text-base">Section C: Tense Identification (41 – 50)</h3>
+                    <p class="text-xs text-amber-800">Identify which of the 4 perfect tenses is used in each sentence.</p>
+                </div>
+
+                <div id="identificationContainer" class="grid grid-cols-1 gap-4">
+                    <!-- Tense ID Q41 - 50 dynamically injected -->
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-6 border-t border-slate-200">
+                <button onclick="switchTab('part1')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2 text-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-chevron-left text-xs"></i> Part 1
+                </button>
+                <button onclick="switchTab('part3')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition flex items-center gap-2 text-sm">
+                    <span>Proceed to Part 3 Listening</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION: PART 3 - LISTENING PRACTICE -->
+        <section id="section-part3" class="tab-content hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-headphones text-brand-600"></i> Part 3: 3-Minute Listening Comprehension
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Listen closely to the narrative about the Miller family's trip and answer the 5 comprehension questions.</p>
+                </div>
+                <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-3 py-1 rounded-full flex items-center gap-1">
+                    <i class="fa-solid fa-eye-slash"></i> No Transcription Allowed
+                </span>
+            </div>
+
+            <!-- Custom Audio Player Card -->
+            <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-xl border border-slate-800 space-y-4">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <button id="playAudioBtn" onclick="toggleAudio()" class="w-14 h-14 rounded-full bg-brand-500 hover:bg-brand-600 text-white flex items-center justify-center text-xl shadow-lg shadow-brand-500/30 transition transform active:scale-95">
+                            <i class="fa-solid fa-play ml-1" id="playIcon"></i>
+                        </button>
+                        <div>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-brand-300">Audio Track</span>
+                            <h3 class="text-base font-bold text-white">"The Miller Family's Perfect Journey"</h3>
+                            <p class="text-xs text-slate-400">Duration: 03:00 • Focus: Perfect Tenses Context</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 w-full md:w-auto">
+                        <button onclick="resetAudio()" class="p-2.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white transition" title="Restart Audio">
+                            <i class="fa-solid fa-rotate-left text-sm"></i>
+                        </button>
+                        <div class="text-xs font-mono bg-slate-800 px-3 py-2 rounded-lg text-indigo-300 border border-slate-700">
+                            <span id="currentTime">00:00</span> / <span id="duration">03:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Progress Bar -->
+                <div class="space-y-1">
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden cursor-pointer" id="audioProgressContainer" onclick="seekAudio(event)">
+                        <div id="audioProgressBar" class="bg-brand-500 h-full w-0 transition-all duration-200"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listening Questions (5 items) -->
+            <div class="space-y-4 pt-2">
+                <h3 class="font-bold text-slate-800 text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-brand-600"></i> Listening Comprehension Questions (Questions 51 – 55)
+                </h3>
+
+                <div id="listeningQuestionsContainer" class="space-y-4">
+                    <!-- Listening questions injected via JS -->
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-6 border-t border-slate-200">
+                <button onclick="switchTab('part2')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2 text-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-chevron-left text-xs"></i> Part 2
+                </button>
+                <button onclick="switchTab('part4')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition flex items-center gap-2 text-sm">
+                    <span>Proceed to Part 4 Game</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION: PART 4 - MEMORY MATCHING GAME -->
+        <section id="section-part4" class="tab-content hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-puzzle-piece text-brand-600"></i> Part 4: Perfect Tenses Memory Game
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Match all 10 pairs (Sentence structure to correct tense form used in questions).</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div class="text-xs font-semibold bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-lg text-slate-700">
+                        Matches: <span id="memoryMatches" class="font-bold text-brand-600">0</span> / 10
+                    </div>
+                    <button onclick="initMemoryGame()" class="text-xs bg-slate-800 hover:bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1">
+                        <i class="fa-solid fa-arrows-rotate text-[10px]"></i> Reset Game
+                    </button>
+                </div>
+            </div>
+
+            <!-- Memory Board -->
+            <div id="memoryGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+                <!-- 20 memory cards injected via JS -->
+            </div>
+
+            <div class="flex justify-between items-center pt-6 border-t border-slate-200">
+                <button onclick="switchTab('part3')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2 text-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-chevron-left text-xs"></i> Part 3
+                </button>
+                
+                <div class="flex items-center gap-2">
+                    <button id="checkResultsBtn" onclick="tryUnlockResults()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl shadow transition flex items-center gap-2 text-sm">
+                        <span>Check & Submit Results</span>
+                        <i class="fa-solid fa-square-check"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: FINAL LOCKED RESULTS PAGE -->
+        <section id="section-results" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-emerald-500/20">
+                <div class="space-y-2 text-center md:text-left">
+                    <span class="bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Assessment Complete</span>
+                    <h2 class="text-3xl font-extrabold text-white">Student Mastery Report</h2>
+                    <p class="text-xs sm:text-sm text-slate-300">
+                        Student: <span id="summaryStudentName" class="font-bold text-white">Anonymous</span> | 
+                        Date: <span id="summaryDate" class="font-bold text-white">-</span>
+                    </p>
+                </div>
+
+                <!-- Final Score Dial -->
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl flex items-center gap-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-extrabold text-emerald-400" id="finalScorePct">0%</div>
+                        <div class="text-[11px] text-slate-300 uppercase font-semibold">Total Score</div>
+                    </div>
+                    <div class="h-10 w-px bg-white/20"></div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white" id="finalScoreRaw">0 / 56</div>
+                        <div class="text-[11px] text-slate-300 uppercase font-semibold">Correct Items</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons Toolbar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Email Button -->
+                    <button onclick="sendAnswersEmail()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Send Answers to Teacher</span>
+                    </button>
+                    <!-- Copy Button -->
+                    <button onclick="copyFormattedAnswers()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Copy Compact Answers</span>
+                    </button>
+                </div>
+
+                <div id="copyToast" class="hidden text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-2 rounded-lg flex items-center gap-1.5 border border-emerald-300">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Copied to Clipboard!
+                </div>
+            </div>
+
+            <!-- Item-by-Item Breakdown -->
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-4">
+                <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2 border-b border-slate-200 pb-3">
+                    <i class="fa-solid fa-clipboard-check text-brand-600"></i> Itemized Answers Breakdown
+                </h3>
+                <div id="answersBreakdown" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Dynamic Answer Rows -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- UI TOAST / MESSAGE BOX -->
+    <div id="msgBox" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none max-w-sm">
+        <div class="bg-slate-900 text-white text-xs sm:text-sm px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center gap-3">
+            <i class="fa-solid fa-circle-info text-brand-400 text-lg" id="msgBoxIcon"></i>
+            <span id="msgBoxText">Notification message</span>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT APP LOGIC -->
+    <script>
+        // --- DATA STRUCTURES & QUESTIONS ---
+        
+        // 1. Part 1 Flashcard Data
+        const FLASHCARDS = [
+            {
+                title: "Present Perfect Simple",
+                formula: "Subject + have/has + Past Participle (V3)",
+                keywords: "already, yet, just, ever, never, since, for, recent accomplishments",
+                usage: "Completed past actions connected to the present, life experiences without specific time, or ongoing states starting in the past.",
+                example: "She has already submitted her detailed research report."
+            },
+            {
+                title: "Present Perfect Continuous",
+                formula: "Subject + have/has + been + Verb-ing",
+                keywords: "for, since, all day, how long, lately, recently",
+                usage: "Actions that began in the past and continue into the present, or recent continuous actions with visible present effects.",
+                example: "They have been studying English grammar for three hours."
+            },
+            {
+                title: "Past Perfect Simple",
+                formula: "Subject + had + Past Participle (V3)",
+                keywords: "before, after, by the time, already, prior to",
+                usage: "An action completed prior to another past moment or action (the 'earlier past').",
+                example: "When I arrived at the station, the train had already left."
+            },
+            {
+                title: "Past Perfect Continuous",
+                formula: "Subject + had + been + Verb-ing",
+                keywords: "for, since, before, how long, until",
+                usage: "Emphasizes the duration of a continuous activity that took place before another point in the past.",
+                example: "He had been waiting for forty minutes before the bus finally came."
+            }
+        ];
+
+        // 2. Part 2 Questions Data (Total: 50 Questions)
+        // 30 Multiple Choice Questions (1 - 30)
+        const MCQ_QUESTIONS = [
+            { id: 1, q: "By the time Sarah arrived at the party, Luke _____ home.", options: ["has gone", "had gone", "was going", "has been going"], ans: 1 },
+            { id: 2, q: "They _____ in London for five years before they moved to Paris.", options: ["have lived", "have been living", "had been living", "live"], ans: 2 },
+            { id: 3, q: "I _____ three letters so far this morning.", options: ["have written", "have been writing", "had written", "wrote"], ans: 0 },
+            { id: 4, q: "Look at your dirty hands! What _____ you _____?", options: ["have / done", "have / been doing", "had / done", "had / been doing"], ans: 1 },
+            { id: 5, q: "She was tired because she _____ all day.", options: ["has worked", "had been working", "works", "has been working"], ans: 1 },
+            { id: 6, q: "How long _____ you _____ your best friend?", options: ["have / known", "have / been knowing", "had / been knowing", "do / know"], ans: 0 },
+            { id: 7, q: "The grass was wet because it _____ all night.", options: ["has rained", "had been raining", "rains", "has been raining"], ans: 1 },
+            { id: 8, q: "We _____ this movie twice already.", options: ["have seen", "had seen", "have been seeing", "saw"], ans: 0 },
+            { id: 9, q: "He was breathless when he entered because he _____.", options: ["has run", "had been running", "was run", "has been running"], ans: 1 },
+            { id: 10, q: "Before last night, I _____ never _____ sushi.", options: ["have / eaten", "had / eaten", "had / been eating", "have / been eating"], ans: 1 },
+            { id: 11, q: "She _____ for the company since 2018.", options: ["has been working", "had worked", "works", "is working"], ans: 0 },
+            { id: 12, q: "When we got to the cinema, the film _____.", options: ["has already started", "had already started", "already started", "has been starting"], ans: 1 },
+            { id: 13, q: "My eyes hurt because I _____ computer games for hours.", options: ["have been playing", "had played", "play", "have played"], ans: 0 },
+            { id: 14, q: "He _____ his keys and cannot open the front door.", options: ["had lost", "has lost", "has been losing", "loses"], ans: 1 },
+            { id: 15, q: "They _____ for 20 minutes when the thunderstorm broke out.", options: ["have walked", "had been walking", "have been walking", "walked"], ans: 1 },
+            { id: 16, q: "Mark _____ all his exams, so his parents are very proud.", options: ["has passed", "had passed", "has been passing", "passes"], ans: 0 },
+            { id: 17, q: "How many foreign countries _____ you _____ to?", options: ["had / been", "have / been", "have / been going", "had / visit"], ans: 1 },
+            { id: 18, q: "She was exhausted because she _____ tennis since 9 AM.", options: ["had been playing", "has played", "plays", "has been playing"], ans: 0 },
+            { id: 19, q: "The kitchen was in a mess because the kids _____ baking cakes.", options: ["have been", "had been", "were been", "have done"], ans: 1 },
+            { id: 20, q: "I _____ my homework yet, so I can't go out.", options: ["hadn't finished", "haven't finished", "haven't been finishing", "don't finish"], ans: 1 },
+            { id: 21, q: "By 10 PM, the firefighters _____ the blaze completely.", options: ["have extinguished", "had extinguished", "have been extinguishing", "extinguished"], ans: 1 },
+            { id: 22, q: "He _____ coughing all morning, so he went to see the doctor.", options: ["has been", "had been", "is being", "has been being"], ans: 0 },
+            { id: 23, q: "She realized she _____ her wallet at the supermarket.", options: ["has left", "had left", "has been leaving", "leaves"], ans: 1 },
+            { id: 24, q: "We _____ for over an hour before the waiter took our order.", options: ["have waited", "had been waiting", "have been waiting", "waited"], ans: 1 },
+            { id: 25, q: "The English Family project _____ incredible success this term.", options: ["has achieved", "had achieved", "achieves", "has been achieving"], ans: 0 },
+            { id: 26, q: "How long _____ it _____ raining when you finally left?", options: ["has / been", "had / been", "was / being", "had / done"], ans: 1 },
+            { id: 27, q: "I _____ this book; you can borrow it now.", options: ["had finished", "have finished", "have been finishing", "finish"], ans: 1 },
+            { id: 28, q: "They _____ each other for long before they got engaged.", options: ["haven't known", "hadn't known", "hadn't been knowing", "don't know"], ans: 1 },
+            { id: 29, q: "The floor was wet because someone _____ it.", options: ["has just cleaned", "had just been cleaning", "had just cleaned", "cleans"], ans: 2 },
+            { id: 30, q: "She _____ English for six months and speaks fluently now.", options: ["has been practicing", "had practiced", "practices", "had been practicing"], ans: 0 }
+        ];
+
+        // 10 Open Answer Questions (31 - 40)
+        const OPEN_QUESTIONS = [
+            { id: 31, sentence: "By the time we arrived, the concert _____ (start).", answer: "had started" },
+            { id: 32, sentence: "She is tired because she _____ (run) for an hour.", answer: "has been running" },
+            { id: 33, sentence: "I _____ (never / see) such a beautiful sunrise before yesterday.", answer: "had never seen" },
+            { id: 34, sentence: "They _____ (live) in this neighborhood since 2010.", answer: "have been living" },
+            { id: 35, sentence: "He _____ (already / complete) three assignments today.", answer: "has already completed" },
+            { id: 36, sentence: "The ground was soft because it _____ (rain) heavily for hours.", answer: "had been raining" },
+            { id: 37, sentence: "How long _____ (you / learn) Spanish before moving to Madrid?", answer: "had you been learning" },
+            { id: 38, sentence: "We _____ (not / finish) our breakfast yet.", answer: "have not finished" },
+            { id: 39, sentence: "She was out of breath because she _____ (dance).", answer: "had been dancing" },
+            { id: 40, sentence: "David _____ (know) Arthur since childhood.", answer: "has known" }
+        ];
+
+        // 10 Tense Identification Questions (41 - 50)
+        const IDENTIFICATION_QUESTIONS = [
+            { id: 41, sentence: "They had been repairing the roof for three hours when it started to snow.", correct: "Past Perfect Continuous" },
+            { id: 42, sentence: "She has already published two bestselling novels this year.", correct: "Present Perfect Simple" },
+            { id: 43, sentence: "We had left the venue long before the fireworks commenced.", correct: "Past Perfect Simple" },
+            { id: 44, sentence: "He has been painting the living room wall all afternoon.", correct: "Present Perfect Continuous" },
+            { id: 45, sentence: "By 1999, Dr. Evans had worked at the clinic for two decades.", correct: "Past Perfect Simple" },
+            { id: 46, sentence: "I have been trying to contact customer service for 45 minutes.", correct: "Present Perfect Continuous" },
+            { id: 47, sentence: "The manager has just sent out the revised meeting schedule.", correct: "Present Perfect Simple" },
+            { id: 48, sentence: "The athlete had been training relentlessly before her injury.", correct: "Past Perfect Continuous" },
+            { id: 49, sentence: "Have you ever visited the Grand Canyon in winter?", correct: "Present Perfect Simple" },
+            { id: 50, sentence: "They had been discussing the contract terms prior to signing.", correct: "Past Perfect Continuous" }
+        ];
+
+        const TENSE_OPTIONS = [
+            "Present Perfect Simple",
+            "Present Perfect Continuous",
+            "Past Perfect Simple",
+            "Past Perfect Continuous"
+        ];
+
+        // 3. Part 3 Listening Questions (51 - 55)
+        const LISTENING_QUESTIONS = [
+            { id: 51, q: "How long had the Miller family been planning their road trip?", options: ["For two months", "For several months", "For three years", "Since yesterday"], ans: 1 },
+            { id: 52, q: "What had happened right before they departed on the highway?", options: ["It had stopped raining", "They had lost the map", "The car had broken down", "They had forgotten the bags"], ans: 0 },
+            { id: 53, q: "What had Sarah been doing all morning during the drive?", options: ["Reading a book", "Driving the car", "Taking photos of the scenery", "Sleeping"], ans: 2 },
+            { id: 54, q: "Has the Miller family reached their cabin resort destination yet?", options: ["No, they are stuck", "Yes, they have just arrived", "They turned back home", "They decided to stay in a hotel"], ans: 1 },
+            { id: 55, q: "How long had Mr. Miller been driving when they reached the resort?", options: ["For 2 hours", "For 5 continuous hours", "For 10 hours", "For 30 minutes"], ans: 1 }
+        ];
+
+        // Simulated Audio Script text for Web Speech Synthesis Audio playback
+        const AUDIO_SCRIPT = "Welcome to the English Family listening comprehension practice. Please listen carefully to the narrative. The Miller family had been planning their grand holiday road trip for several months. By 6 AM yesterday morning, they had packed all their luggage into the car trunk and checked the tires. Thankfully, it had stopped raining right before they departed on the highway. Throughout the long drive, Sarah had been taking beautiful photos of the countryside scenery all morning. Finally, after driving for five continuous hours, Mr. Miller pulled into the mountain resort. They have just arrived at their cozy cabin, and they have already unpacked their bags for an unforgettable weekend.";
+
+        // 4. Part 4 Memory Cards Data (10 Pairs = 20 Cards)
+        const MEMORY_PAIRS_DATA = [
+            { text: "Subject + have/has + V3", matchId: 1 },
+            { text: "Present Perfect Simple", matchId: 1 },
+            { text: "Subject + have/has + been + V-ing", matchId: 2 },
+            { text: "Present Perfect Continuous", matchId: 2 },
+            { text: "Subject + had + V3", matchId: 3 },
+            { text: "Past Perfect Simple", matchId: 3 },
+            { text: "Subject + had + been + V-ing", matchId: 4 },
+            { text: "Past Perfect Continuous", matchId: 4 },
+            { text: "Action before another past moment", matchId: 5 },
+            { text: "Past Perfect Simple Usage", matchId: 5 },
+            { text: "Continuous action extending to present", matchId: 6 },
+            { text: "Present Perfect Continuous Usage", matchId: 6 },
+            { text: "'She has lived here for 10 years'", matchId: 7 },
+            { text: "Present Perfect Simple Example", matchId: 7 },
+            { text: "'Had been raining before noon'", matchId: 8 },
+            { text: "Past Perfect Continuous Example", matchId: 8 },
+            { text: "Key word: 'already / yet'", matchId: 9 },
+            { text: "Present Perfect Keyword Signal", matchId: 9 },
+            { text: "Key phrase: 'by the time...'", matchId: 10 },
+            { text: "Past Perfect Keyword Signal", matchId: 10 }
+        ];
+
+        // --- GLOBAL STATE ---
+        let studentAnswers = {}; // { questionId: value }
+        let memoryFlippedCards = [];
+        let memoryMatchedCount = 0;
+        let isAudioPlaying = false;
+        let audioUtterance = null;
+        let audioProgressTimer = null;
+        let audioSeconds = 0;
+        const TOTAL_AUDIO_SEC = 180; // 3 min simulation scale
+        let isResultsUnlocked = false;
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            // Set default date to today
+            document.getElementById('testDate').value = new Date().toISOString().split('T')[0];
+            
+            // Build Sections
+            renderFlashcards();
+            renderMCQ();
+            renderOpenQuestions();
+            renderIdentificationQuestions();
+            renderListeningQuestions();
+            initMemoryGame();
+            updateGlobalProgress();
+        };
+
+        // --- TAB SWITCHING ---
+        function switchTab(tabId) {
+            if (tabId === 'results' && !isResultsUnlocked) {
+                showToast("Complete all questions and memory game to unlock Results!", "fa-lock");
+                return;
+            }
+
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-brand-600', 'text-brand-600', 'bg-brand-50');
+                btn.classList.add('text-slate-600', 'border-transparent');
+            });
+
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'border-brand-600', 'text-brand-600', 'bg-brand-50');
+                activeBtn.classList.remove('text-slate-600', 'border-transparent');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- PART 1: FLASHCARDS RENDER ---
+        function renderFlashcards() {
+            const container = document.getElementById('flashcardsContainer');
+            container.innerHTML = FLASHCARDS.map((fc, idx) => `
+                <div class="perspective-1000 h-64 cursor-pointer group" onclick="this.querySelector('.card-inner').classList.toggle('rotate-y-180')">
+                    <div class="card-inner relative w-full h-full transition-transform duration-700 transform-style-3d shadow-md hover:shadow-xl rounded-2xl">
+                        
+                        <!-- Front Side -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-indigo-800 text-white p-6 rounded-2xl backface-hidden flex flex-col justify-between border border-brand-400/30">
+                            <div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest bg-white/20 px-2.5 py-1 rounded-full text-indigo-100">Card 0${idx+1}</span>
+                                <h3 class="text-xl font-extrabold mt-3 text-white">${fc.title}</h3>
+                                <p class="text-xs text-indigo-200 mt-2 font-mono bg-slate-900/40 p-2.5 rounded-lg border border-white/10">${fc.formula}</p>
+                            </div>
+                            <div class="flex items-center justify-between text-xs text-indigo-200 border-t border-white/10 pt-3">
+                                <span>Click to flip formula details</span>
+                                <i class="fa-solid fa-rotate text-sm group-hover:rotate-180 transition-transform duration-500"></i>
+                            </div>
+                        </div>
+
+                        <!-- Back Side -->
+                        <div class="absolute inset-0 bg-white text-slate-800 p-6 rounded-2xl backface-hidden rotate-y-180 flex flex-col justify-between border border-slate-200 shadow-inner">
+                            <div class="space-y-2">
+                                <h4 class="font-bold text-brand-700 text-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-lightbulb text-amber-500"></i> Key Signals & Usage
+                                </h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">${fc.usage}</p>
+                                <div class="text-[11px] bg-slate-50 p-2 rounded border border-slate-100 text-slate-700">
+                                    <strong class="text-brand-600">Keywords:</strong> ${fc.keywords}
+                                </div>
+                            </div>
+                            <div class="bg-indigo-50 border-l-2 border-brand-500 p-2 rounded text-xs text-indigo-900 italic">
+                                "${fc.example}"
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- PART 2: QUESTION RENDERING ---
+        function renderMCQ() {
+            const container = document.getElementById('mcqContainer');
+            container.innerHTML = MCQ_QUESTIONS.map(q => `
+                <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-slate-100 text-slate-700 font-bold text-xs px-2.5 py-1 rounded-lg border border-slate-200">Q${q.id}</span>
+                        <p class="font-semibold text-sm sm:text-base text-slate-800">${q.q}</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-0 sm:pl-10">
+                        ${q.options.map((opt, oIdx) => `
+                            <label class="flex items-center gap-2.5 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs sm:text-sm transition option-label" id="label-q${q.id}-opt${oIdx}">
+                                <input type="radio" name="q_${q.id}" value="${oIdx}" onchange="handleAnswerSelect(${q.id}, ${oIdx})" class="text-brand-600 focus:ring-brand-500">
+                                <span><strong class="text-slate-400 mr-1">${String.fromCharCode(65 + oIdx)}.</strong> ${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderOpenQuestions() {
+            const container = document.getElementById('openAnswerContainer');
+            container.innerHTML = OPEN_QUESTIONS.map(q => `
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-teal-100 text-teal-800 font-bold text-xs px-2 py-0.5 rounded">Q${q.id}</span>
+                        <span class="text-xs text-slate-400 font-semibold">Fill in the blank</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-800 font-medium">${q.sentence}</p>
+                    <input type="text" placeholder="Type answer here..." oninput="handleOpenInput(${q.id}, this.value)"
+                        class="w-full text-xs sm:text-sm px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition">
+                </div>
+            `).join('');
+        }
+
+        function renderIdentificationQuestions() {
+            const container = document.getElementById('identificationContainer');
+            container.innerHTML = IDENTIFICATION_QUESTIONS.map(q => `
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-amber-100 text-amber-800 font-bold text-xs px-2.5 py-1 rounded-lg">Q${q.id}</span>
+                        <p class="font-semibold text-xs sm:text-sm text-slate-800">"${q.sentence}"</p>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pl-0 sm:pl-9">
+                        ${TENSE_OPTIONS.map((tense, tIdx) => `
+                            <button type="button" onclick="handleTenseSelect(${q.id}, '${tense}', this)" 
+                                class="tense-btn-q${q.id} border border-slate-200 text-slate-700 bg-slate-50 hover:bg-amber-50 hover:border-amber-300 text-[11px] sm:text-xs font-semibold py-2 px-2.5 rounded-lg text-center transition">
+                                ${tense}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderListeningQuestions() {
+            const container = document.getElementById('listeningQuestionsContainer');
+            container.innerHTML = LISTENING_QUESTIONS.map(q => `
+                <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="bg-amber-100 text-amber-800 font-bold text-xs px-2.5 py-1 rounded-lg">Q${q.id}</span>
+                        <p class="font-semibold text-sm text-slate-800">${q.q}</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-0 sm:pl-9">
+                        ${q.options.map((opt, oIdx) => `
+                            <label class="flex items-center gap-2.5 p-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer text-xs sm:text-sm transition">
+                                <input type="radio" name="q_${q.id}" value="${oIdx}" onchange="handleAnswerSelect(${q.id}, ${oIdx})" class="text-amber-600 focus:ring-amber-500">
+                                <span><strong class="text-slate-400 mr-1">${String.fromCharCode(65 + oIdx)}.</strong> ${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- ANSWER INPUT HANDLERS ---
+        function handleAnswerSelect(qId, val) {
+            studentAnswers[qId] = val;
+            updateGlobalProgress();
+        }
+
+        function handleOpenInput(qId, val) {
+            if (val.trim()) {
+                studentAnswers[qId] = val.trim();
+            } else {
+                delete studentAnswers[qId];
+            }
+            updateGlobalProgress();
+        }
+
+        function handleTenseSelect(qId, tense, btn) {
+            studentAnswers[qId] = tense;
+            document.querySelectorAll(`.tense-btn-q${qId}`).forEach(b => {
+                b.classList.remove('bg-amber-600', 'text-white', 'border-amber-600');
+                b.classList.add('bg-slate-50', 'text-slate-700');
+            });
+            btn.classList.remove('bg-slate-50', 'text-slate-700');
+            btn.classList.add('bg-amber-600', 'text-white', 'border-amber-600');
+            updateGlobalProgress();
+        }
+
+        // --- PROGRESS TRACKER ---
+        function updateGlobalProgress() {
+            const totalItems = 56; // 50 questions + 5 listening + 1 memory game completed flag
+            let answeredCount = Object.keys(studentAnswers).length;
+            if (memoryMatchedCount === 10) answeredCount++;
+
+            const pct = Math.round((answeredCount / totalItems) * 100);
+            
+            document.getElementById('progressBar').style.width = `${pct}%`;
+            document.getElementById('progressPercentage').innerText = `${pct}%`;
+            document.getElementById('completionTrackerText').innerText = `${answeredCount} / ${totalItems} Completed`;
+
+            document.getElementById('part2Counter').innerText = `${countPart2Answers()} / 50 Answered`;
+
+            // Auto unlock results tab when 100% complete
+            if (answeredCount >= totalItems && !isResultsUnlocked) {
+                unlockResultsTab();
+            }
+        }
+
+        function countPart2Answers() {
+            let count = 0;
+            for (let i = 1; i <= 50; i++) {
+                if (studentAnswers[i] !== undefined && studentAnswers[i] !== '') count++;
+            }
+            return count;
+        }
+
+        // --- PART 3: AUDIO PLAYER SIMULATION & SPEECH ---
+        function toggleAudio() {
+            if (isAudioPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+
+        function playAudio() {
+            isAudioPlaying = true;
+            document.getElementById('playIcon').className = "fa-solid fa-pause";
+            
+            // Speech Synthesis API
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                audioUtterance = new SpeechSynthesisUtterance(AUDIO_SCRIPT);
+                audioUtterance.rate = 0.9;
+                audioUtterance.pitch = 1.0;
+                audioUtterance.lang = 'en-US';
+
+                audioUtterance.onend = function() {
+                    pauseAudio();
+                    audioSeconds = TOTAL_AUDIO_SEC;
+                    updateAudioUI();
+                };
+
+                window.speechSynthesis.speak(audioUtterance);
+            }
+
+            // Simulated timer for 3-minute bar
+            clearInterval(audioProgressTimer);
+            audioProgressTimer = setInterval(() => {
+                if (audioSeconds < TOTAL_AUDIO_SEC) {
+                    audioSeconds++;
+                    updateAudioUI();
+                } else {
+                    pauseAudio();
+                }
+            }, 1000);
+        }
+
+        function pauseAudio() {
+            isAudioPlaying = false;
+            document.getElementById('playIcon').className = "fa-solid fa-play ml-1";
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.pause();
+            }
+            clearInterval(audioProgressTimer);
+        }
+
+        function resetAudio() {
+            pauseAudio();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            audioSeconds = 0;
+            updateAudioUI();
+        }
+
+        function updateAudioUI() {
+            const mins = Math.floor(audioSeconds / 60).toString().padStart(2, '0');
+            const secs = (audioSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('currentTime').innerText = `${mins}:${secs}`;
+            const pct = (audioSeconds / TOTAL_AUDIO_SEC) * 100;
+            document.getElementById('audioProgressBar').style.width = `${pct}%`;
+        }
+
+        function seekAudio(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const pct = clickX / rect.width;
+            audioSeconds = Math.floor(pct * TOTAL_AUDIO_SEC);
+            updateAudioUI();
+        }
+
+        // --- PART 4: MEMORY MATCHING GAME ---
+        function initMemoryGame() {
+            memoryFlippedCards = [];
+            memoryMatchedCount = 0;
+            document.getElementById('memoryMatches').innerText = '0';
+            
+            // Shuffle cards
+            const shuffled = [...MEMORY_PAIRS_DATA].sort(() => Math.random() - 0.5);
+            const grid = document.getElementById('memoryGrid');
+            
+            grid.innerHTML = shuffled.map((card, idx) => `
+                <div class="h-24 sm:h-28 perspective-1000 cursor-pointer" onclick="flipMemoryCard(${idx}, ${card.matchId}, this)">
+                    <div class="mem-card-inner relative w-full h-full transition-transform duration-500 transform-style-3d rounded-xl shadow border border-slate-200">
+                        <!-- Front Face (Hidden content initially) -->
+                        <div class="absolute inset-0 bg-brand-900 text-indigo-200 rounded-xl backface-hidden flex flex-col items-center justify-center p-2 text-center">
+                            <i class="fa-solid fa-brain text-lg text-brand-400 mb-1"></i>
+                            <span class="text-[10px] uppercase tracking-wider font-bold">Card ${idx+1}</span>
+                        </div>
+                        <!-- Back Face (Revealed text) -->
+                        <div class="absolute inset-0 bg-white text-slate-800 rounded-xl backface-hidden rotate-y-180 flex items-center justify-center p-3 text-center border-2 border-brand-500">
+                            <p class="text-[11px] sm:text-xs font-bold leading-tight text-slate-800">${card.text}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            updateGlobalProgress();
+        }
+
+        function flipMemoryCard(cardIdx, matchId, element) {
+            if (memoryFlippedCards.length >= 2) return;
+            const cardInner = element.querySelector('.mem-card-inner');
+            if (cardInner.classList.contains('rotate-y-180')) return; // Already flipped
+
+            cardInner.classList.add('rotate-y-180');
+            memoryFlippedCards.push({ idx: cardIdx, matchId: matchId, el: cardInner });
+
+            if (memoryFlippedCards.length === 2) {
+                const [card1, card2] = memoryFlippedCards;
+                if (card1.matchId === card2.matchId) {
+                    // Match found!
+                    memoryMatchedCount++;
+                    document.getElementById('memoryMatches').innerText = memoryMatchedCount;
+                    memoryFlippedCards = [];
+                    showToast("Matched Pair Found!", "fa-square-check");
+                    if (memoryMatchedCount === 10) {
+                        showToast("Memory Game Complete! Great Job!", "fa-trophy");
+                        updateGlobalProgress();
+                    }
+                } else {
+                    // Not a match, flip back
+                    setTimeout(() => {
+                        card1.el.classList.remove('rotate-y-180');
+                        card2.el.classList.remove('rotate-y-180');
+                        memoryFlippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        // --- RESULTS UNLOCKING & SCORE CALCULATION ---
+        function tryUnlockResults() {
+            const answeredCount = Object.keys(studentAnswers).length;
+            if (answeredCount < 55 || memoryMatchedCount < 10) {
+                showToast(`Please answer all 55 questions and complete the memory game first! (${answeredCount}/55 Qs done)`, "fa-circle-exclamation");
+                return;
+            }
+            unlockResultsTab();
+            switchTab('results');
+        }
+
+        function unlockResultsTab() {
+            isResultsUnlocked = true;
+            const resTab = document.getElementById('tab-results');
+            resTab.disabled = false;
+            resTab.classList.remove('text-slate-400', 'bg-slate-100', 'cursor-not-allowed');
+            resTab.classList.add('text-slate-600', 'hover:text-brand-600', 'hover:bg-slate-50');
+            document.getElementById('lockIcon').className = "fa-solid fa-lock-open text-emerald-500";
+            
+            calculateScores();
+        }
+
+        function calculateScores() {
+            let correctCount = 0;
+            const breakdownContainer = document.getElementById('answersBreakdown');
+            breakdownContainer.innerHTML = '';
+
+            // Update student header details
+            const name = document.getElementById('studentName').value.trim() || "Anonymous Student";
+            const date = document.getElementById('testDate').value || new Date().toISOString().split('T')[0];
+            document.getElementById('summaryStudentName').innerText = name;
+            document.getElementById('summaryDate').innerText = date;
+
+            // 1. Evaluate MCQ 1 - 30
+            MCQ_QUESTIONS.forEach(q => {
+                const studentVal = studentAnswers[q.id];
+                const isCorrect = studentVal !== undefined && Number(studentVal) === q.ans;
+                if (isCorrect) correctCount++;
+
+                const studentOptionText = studentVal !== undefined ? `${String.fromCharCode(65 + Number(studentVal))}. ${q.options[studentVal]}` : "No Answer";
+                const correctOptionText = `${String.fromCharCode(65 + q.ans)}. ${q.options[q.ans]}`;
+
+                appendBreakdownRow(q.id, q.q, studentOptionText, correctOptionText, isCorrect);
+            });
+
+            // 2. Evaluate Open 31 - 40
+            OPEN_QUESTIONS.forEach(q => {
+                const studentVal = (studentAnswers[q.id] || "").trim().toLowerCase();
+                const expected = q.answer.trim().toLowerCase();
+                const isCorrect = studentVal === expected;
+                if (isCorrect) correctCount++;
+
+                appendBreakdownRow(q.id, q.sentence, studentAnswers[q.id] || "No Answer", q.answer, isCorrect);
+            });
+
+            // 3. Evaluate Tense ID 41 - 50
+            IDENTIFICATION_QUESTIONS.forEach(q => {
+                const studentVal = studentAnswers[q.id];
+                const isCorrect = studentVal === q.correct;
+                if (isCorrect) correctCount++;
+
+                appendBreakdownRow(q.id, q.sentence, studentVal || "No Answer", q.correct, isCorrect);
+            });
+
+            // 4. Evaluate Listening 51 - 55
+            LISTENING_QUESTIONS.forEach(q => {
+                const studentVal = studentAnswers[q.id];
+                const isCorrect = studentVal !== undefined && Number(studentVal) === q.ans;
+                if (isCorrect) correctCount++;
+
+                const studentOptionText = studentVal !== undefined ? `${String.fromCharCode(65 + Number(studentVal))}. ${q.options[studentVal]}` : "No Answer";
+                const correctOptionText = `${String.fromCharCode(65 + q.ans)}. ${q.options[q.ans]}`;
+
+                appendBreakdownRow(q.id, q.q, studentOptionText, correctOptionText, isCorrect);
+            });
+
+            // 5. Memory Game item (Q56)
+            const memoryCorrect = memoryMatchedCount === 10;
+            if (memoryCorrect) correctCount++;
+            appendBreakdownRow(56, "Memory Game 10 Pairs Completed", memoryCorrect ? "10/10 Pairs Matched" : "Incomplete", "10/10 Pairs Matched", memoryCorrect);
+
+            // Display overall score
+            const totalItems = 56;
+            const pct = Math.round((correctCount / totalItems) * 100);
+            document.getElementById('finalScorePct').innerText = `${pct}%`;
+            document.getElementById('finalScoreRaw').innerText = `${correctCount} / ${totalItems}`;
+        }
+
+        function appendBreakdownRow(id, title, studentAns, correctAns, isCorrect) {
+            const container = document.getElementById('answersBreakdown');
+            container.innerHTML += `
+                <div class="p-3.5 rounded-xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/50' : 'border-rose-200 bg-rose-50/50'} flex items-start gap-3 text-xs">
+                    <div class="mt-0.5">
+                        ${isCorrect 
+                            ? '<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>' 
+                            : '<i class="fa-solid fa-circle-xmark text-rose-500 text-base"></i>'}
+                    </div>
+                    <div class="space-y-1 flex-1">
+                        <div class="font-bold text-slate-800">Q${id}: ${title}</div>
+                        <div class="text-slate-600">Your Answer: <span class="font-semibold ${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${studentAns}</span></div>
+                        ${!isCorrect ? `<div class="text-slate-500">Correct: <span class="font-semibold text-slate-700">${correctAns}</span></div>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- EMAIL & COPY BUTTON ACTIONS ---
+        function generateCompactAnswerString() {
+            const studentName = document.getElementById('studentName').value.trim() || "Student";
+            const date = document.getElementById('testDate').value || new Date().toISOString().split('T')[0];
+            
+            let report = `English Family Perfect Tenses Assessment\n`;
+            report += `Student: ${studentName} | Date: ${date}\n`;
+            report += `----------------------------------------\n`;
+
+            for (let i = 1; i <= 55; i++) {
+                let isCorrect = false;
+                let ansLetter = "";
+
+                if (i <= 30) {
+                    const q = MCQ_QUESTIONS[i - 1];
+                    const val = studentAnswers[i];
+                    isCorrect = val !== undefined && Number(val) === q.ans;
+                    ansLetter = val !== undefined ? String.fromCharCode(65 + Number(val)) : "-";
+                } else if (i <= 40) {
+                    const q = OPEN_QUESTIONS[i - 31];
+                    const val = (studentAnswers[i] || "").trim().toLowerCase();
+                    isCorrect = val === q.answer.trim().toLowerCase();
+                    ansLetter = studentAnswers[i] || "-";
+                } else if (i <= 50) {
+                    const q = IDENTIFICATION_QUESTIONS[i - 41];
+                    const val = studentAnswers[i];
+                    isCorrect = val === q.correct;
+                    ansLetter = val ? val.split(" ")[0] : "-";
+                } else {
+                    const q = LISTENING_QUESTIONS[i - 51];
+                    const val = studentAnswers[i];
+                    isCorrect = val !== undefined && Number(val) === q.ans;
+                    ansLetter = val !== undefined ? String.fromCharCode(65 + Number(val)) : "-";
+                }
+
+                report += `Q${i}: ${ansLetter} ${isCorrect ? '✓' : '✗'}\n`;
+            }
+
+            const memMatch = memoryMatchedCount === 10;
+            report += `Memory Game: ${memMatch ? '10/10 ✓' : 'Incomplete ✗'}\n`;
+            return report;
+        }
+
+        function sendAnswersEmail() {
+            const compactAnswers = generateCompactAnswerString();
+            const emailRecipient = "Danielenglishclasses23@gmail.com";
+            const subject = encodeURIComponent(`Perfect Tenses Results - ${document.getElementById('studentName').value || 'Student'}`);
+            const body = encodeURIComponent(compactAnswers);
+            
+            window.location.href = `mailto:${emailRecipient}?subject=${subject}&body=${body}`;
+        }
+
+        function copyFormattedAnswers() {
+            const textToCopy = generateCompactAnswerString();
+            
+            // execCommand fallback mechanism for reliable iframe copying
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const toast = document.getElementById('copyToast');
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 3000);
+            } catch (err) {
+                showToast("Failed to copy text. Please try again.", "fa-triangle-exclamation");
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // --- UTILITY TOAST NOTIFICATION ---
+        function showToast(text, iconClass) {
+            const msgBox = document.getElementById('msgBox');
+            document.getElementById('msgBoxText').innerText = text;
+            document.getElementById('msgBoxIcon').className = `fa-solid ${iconClass} text-brand-400 text-lg`;
+            
+            msgBox.classList.remove('translate-y-20', 'opacity-0');
+            msgBox.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                msgBox.classList.remove('translate-y-0', 'opacity-100');
+                msgBox.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
